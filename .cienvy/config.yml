@@ -1,0 +1,18 @@
+# @Author: guiguan
+# @Date:   2017-02-15T07:18:20+11:00
+# @Last modified by:   guiguan
+# @Last modified time: 2017-06-21T09:46:44+10:00
+
+inlinks:
+  - dbkoda
+volumes:
+  - type: yarn-cache
+  - srcNode: dbkoda
+    srcPath: .
+    tgtPath: app
+    type: link
+parallelLimit: 1
+workflows:
+  - setup
+  - deployToRemoteVolumes
+  - runUat
