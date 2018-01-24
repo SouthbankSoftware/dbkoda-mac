@@ -2,8 +2,8 @@
 *dbKoda for Mac*
 
 <p align="left">
-  <a href="https://ci.appveyor.com/project/SouthbankDeveloper/dbkoda-mac">
-    <img src="https://img.shields.io/appveyor/ci/SouthbankDeveloper/dbkoda-mac.svg?style=flat-square">
+  <a href="https://travis-ci.org/SouthbankSoftware/dbkoda-mac">
+    <img src="https://img.shields.io/travis/SouthbankDeveloper/dbkoda-mac.svg?style=flat-square">
   </a>
   <a href="https://david-dm.org/SouthbankSoftware/dbkoda-mac">
     <img src="https://img.shields.io/david/SouthbankSoftware/dbkoda-mac.svg?style=flat-square">

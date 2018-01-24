@@ -3,7 +3,7 @@
  * @Date:   1970-01-01T10:00:00+10:00
  * @Email:  root@guiguan.net
  * @Last modified by:   guiguan
- * @Last modified time: 2018-01-24T12:00:32+11:00
+ * @Last modified time: 2018-01-24T16:38:41+11:00
  *
  * dbKoda - a modern, open source code editor, for MongoDB.
  * Copyright (C) 2017-2018 Southbank Software
@@ -95,7 +95,7 @@ gulp.task('buildUi', (cb) => {
       gulp.src(''),
       shell([
         'yarn install --no-progress',
-        'node --max_old_space_size=1280 ./node_modules/webpack/bin/webpack.js --config webpack/prod.js'
+        'node --max_old_space_size=2048 ./node_modules/webpack/bin/webpack.js --config webpack/prod.js'
       ])
     ],
     cb
@@ -112,36 +112,54 @@ gulp.task('buildController', (cb) => {
 
 /**
  * Build dbKoda App
+ *
+ * --release: whether to build a release version so that app is able to auto-update to latest
+ *            version in release channel
+ * --dev: whether to build a dev version so that app is able to auto-update to latest version in dev
+ *            channel
  */
 gulp.task('buildDbKoda', (cb) => {
   process.chdir(path.resolve(__dirname, 'dbkoda'));
 
+  let buildCmd;
+
+  if (argv.release) {
+    buildCmd = 'yarn dist:release';
+  } else if (argv.dev) {
+    buildCmd = 'yarn dist:dev';
+  } else {
+    buildCmd = 'yarn dist';
+  }
+
+  pump([gulp.src(''), shell(['yarn install --no-progress', 'yarn dev:link', buildCmd])], cb);
+});
+
+/**
+ * Add version (from Travis) suffix to build artifact
+ */
+gulp.task('addVersionSuffixToBuildArtifact', (cb) => {
+  process.chdir(__dirname);
+
+  const { TRAVIS_BRANCH, TRAVIS_BUILD_NUMBER } = process.env;
+
   pump(
-    [gulp.src(''), shell(['yarn install --no-progress', 'yarn dev:link', 'yarn dist:release'])],
+    [
+      gulp.src([
+        './dbkoda/dist/*.zip',
+        './dbkoda/dist/*.dmg',
+        './dbkoda/dist/*.json',
+        './dbkoda/dist/*.yml',
+        './dbkoda/dist/*.sha1'
+      ]),
+      vinylPaths(del),
+      rename((path) => {
+        path.basename += `-${TRAVIS_BUILD_NUMBER}.${TRAVIS_BRANCH}`;
+      }),
+      gulp.dest('./dbkoda/dist')
+    ],
     cb
   );
 });
-
-// /**
-//  * Add version (from AppVeyor) suffix to build artifact
-//  */
-// gulp.task('addVersionSuffixToBuildArtifact', (cb) => {
-//   process.chdir(__dirname);
-//
-//   const { APPVEYOR_BUILD_VERSION } = process.env;
-//
-//   pump(
-//     [
-//       gulp.src(['./dbkoda/dist/*.exe', './dbkoda/dist/*.yml', './dbkoda/dist/*.sha1']),
-//       vinylPaths(del),
-//       rename((path) => {
-//         path.basename += `-${APPVEYOR_BUILD_VERSION}`;
-//       }),
-//       gulp.dest('./dbkoda/dist')
-//     ],
-//     cb
-//   );
-// });
 
 /**
  * Build all
