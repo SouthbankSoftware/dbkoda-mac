@@ -3,7 +3,7 @@
 
 <p align="left">
   <a href="https://travis-ci.org/SouthbankSoftware/dbkoda-mac">
-    <img src="https://img.shields.io/travis/SouthbankDeveloper/dbkoda-mac.svg?style=flat-square">
+    <img src="https://img.shields.io/travis/SouthbankSoftware/dbkoda-mac.svg?style=flat-square">
   </a>
   <a href="https://david-dm.org/SouthbankSoftware/dbkoda-mac">
     <img src="https://img.shields.io/david/SouthbankSoftware/dbkoda-mac.svg?style=flat-square">
