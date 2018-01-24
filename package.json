@@ -1,58 +1,44 @@
 {
-  "name": "@southbanksoftware/dbkoda-mac",
-  "gitName": "dbkoda-mac",
-  "fullName": "dbKoda Mac",
+  "name": "dbkoda-mac",
+  "version": "0.2.0",
   "description": "dbKoda for Mac",
-  "version": "0.5.0",
+  "main": "gulpfile.js",
   "author": {
     "name": "Southbank Software",
     "email": "developer@southbanksoftware.com",
     "url": "http://southbanksoftware.com"
   },
-  "keywords": [
-    "mac",
-    "mongodb",
-    "dbkoda",
-    "electron",
-    "uat"
-  ],
+  "license": "AGPL-3.0",
   "engines": {
-    "node": ">= 7.2.1"
-  },
-  "scripts": {
-    "cienvy:dev:watch": "nodemon --watch .cienvy/src --exec \"yarn cienvy:dev\"",
-    "cienvy:dev": "yarn run cienvy:clean && yarn run cienvy:dev:build",
-    "cienvy:dev:build": "yarn run cienvy:build -- --source-maps",
-    "cienvy:clean": "rimraf .cienvy/lib",
-    "cienvy:build": "BABEL_ENV=cienvy babel -d .cienvy/lib .cienvy/src"
+    "node": ">= 8.9.1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SouthbankSoftware/dbkoda-mac.git"
   },
-  "license": "AGPL-3.0",
-  "private": true,
   "bugs": {
     "url": "https://github.com/SouthbankSoftware/dbkoda-mac/issues"
   },
   "homepage": "https://github.com/SouthbankSoftware/dbkoda-mac#readme",
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.23.1",
-    "babel-eslint": "^7.1.1",
-    "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-plugin-transform-async-to-generator": "^6.16.0",
-    "babel-plugin-transform-decorators-legacy": "^1.3.4",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "^1.4.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.16.0",
-    "eslint-config-airbnb": "^13.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.6.0",
-    "eslint": "^3.19.0",
-    "rimraf": "^2.5.4",
-    "nodemon": "^1.11.0"
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-import-resolver-node": "^0.3.2",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.5.1"
+  },
+  "dependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^2.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sequence": "^1.0.0",
+    "gulp-shell": "^0.6.5",
+    "pump": "^2.0.1",
+    "shelljs": "^0.8.1",
+    "through2": "^2.0.3",
+    "vinyl-paths": "^2.1.0",
+    "yargs": "^11.0.0"
   }
 }
