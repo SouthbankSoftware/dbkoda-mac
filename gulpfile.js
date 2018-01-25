@@ -3,7 +3,7 @@
  * @Date:   1970-01-01T10:00:00+10:00
  * @Email:  root@guiguan.net
  * @Last modified by:   guiguan
- * @Last modified time: 2018-01-24T16:38:41+11:00
+ * @Last modified time: 2018-01-25T14:22:32+11:00
  *
  * dbKoda - a modern, open source code editor, for MongoDB.
  * Copyright (C) 2017-2018 Southbank Software
@@ -27,6 +27,7 @@
 const gulp = require('gulp');
 const sh = require('shelljs');
 const shell = require('gulp-shell');
+const fs = require('fs');
 const { argv } = require('yargs');
 const through = require('through2');
 const pump = require('pump');
@@ -138,24 +139,41 @@ gulp.task('buildDbKoda', (cb) => {
  * Add version (from Travis) suffix to build artifact
  */
 gulp.task('addVersionSuffixToBuildArtifact', (cb) => {
-  process.chdir(__dirname);
+  process.chdir(path.resolve(__dirname, 'dbkoda/dist'));
 
-  const { TRAVIS_BRANCH, TRAVIS_BUILD_NUMBER } = process.env;
+  const { TRAVIS, APPVEYOR } = process.env;
+
+  let provider;
+  let buildNum;
+
+  if (TRAVIS === 'true') {
+    const { TRAVIS_BUILD_NUMBER } = process.env;
+
+    provider = 'travis';
+    buildNum = TRAVIS_BUILD_NUMBER;
+  } else if (APPVEYOR === 'true') {
+    const { APPVEYOR_BUILD_NUMBER } = process.env;
+
+    provider = 'appveyor';
+    buildNum = APPVEYOR_BUILD_NUMBER;
+  } else {
+    return cb(new Error('Unknown CI provider'));
+  }
+
+  // retrieve branch info from `dbkoda` submodule
+  const branch = fs
+    .readFileSync(path.resolve(__dirname, '.gitmodules'))
+    .toString()
+    .match(/\[submodule "dbkoda"\][^\[\]]*branch = (\S+)/)[1];
 
   pump(
     [
-      gulp.src([
-        './dbkoda/dist/*.zip',
-        './dbkoda/dist/*.dmg',
-        './dbkoda/dist/*.json',
-        './dbkoda/dist/*.yml',
-        './dbkoda/dist/*.sha1'
-      ]),
+      gulp.src(['*.zip', '*.dmg', '*.json', '*.yml', '*.sha1']),
       vinylPaths(del),
       rename((path) => {
-        path.basename += `-${TRAVIS_BUILD_NUMBER}.${TRAVIS_BRANCH}`;
+        path.basename += `-${provider}.${buildNum}.${branch}`;
       }),
-      gulp.dest('./dbkoda/dist')
+      gulp.dest('.')
     ],
     cb
   );

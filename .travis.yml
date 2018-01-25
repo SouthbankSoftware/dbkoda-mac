@@ -2,7 +2,7 @@
 # @Date:   2018-01-24T14:35:24+11:00
 # @Email:  root@guiguan.net
 # @Last modified by:   guiguan
-# @Last modified time: 2018-01-25T04:20:53+11:00
+# @Last modified time: 2018-01-25T14:20:28+11:00
 #
 # dbKoda - a modern, open source code editor, for MongoDB.
 # Copyright (C) 2017-2018 Southbank Software
@@ -30,15 +30,20 @@ node_js: null
 
 git:
   depth: 3
-  submodules: true
+  submodules: false
+
+before_install:
+  - git submodule update --init --recursive --recommend-shallow --remote
 
 install:
+  - echo $JAVA_HOME
   - export JAVA_HOME=$(/usr/libexec/java_home)
   - node -v
   - java -version
   - python --version
 
 script:
+  - set -e
   - yarn install --no-progress
   - yarn gulp build --release
   - (cd ./dbkoda/dist && for i in $(ls *.dmg); do shasum -a 1 $i > $i.sha1; done)
@@ -49,7 +54,12 @@ deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY_ID
   secret_access_key: $AWS_SECRET_ACCESS_KEY
-  bucket: southbanksoftware.com
+  bucket: cloud-build
   skip_cleanup: true
   local_dir: dbkoda/dist/s3
-  upload-dir: travis
+  region: ap-southeast-2
+
+notifications:
+  slack:
+    secure: dRNeSCQgkwXmb6M9/dKDdNHDCB687pUVCIUjWBl1bNM5pfn9ej5cKfRUSaDCDeJw+p1JsZHqEy1u0SEWuqZPFYGBkQi7ozkoFfPdEL1ES2wufAZAlR6zGlB6+IKjsiPyKq8Lu9xTrtF6Flr6GYP6+aS11yfE69ZafQ/3ETG6SF27yX+n853h00ob8OYVLeCK0vxEac92FlOb5n5EXMloMCcrUGnF5yH9MAZWHs07cL+z0MKoO6cUodQOGVuMWWfjK5feEhABJVrxe6j4qmHnX7nROtIEuB8Y0hzWvEwT5eBD5ujBc4/wa1xNNWW1TFIgGViFU4JOqgq92EfiUj++TBYGkt4l2OAWda4u/GlhZsDqHN3ZIZYO82uUyKcZxbK6z934dTSPjzNQZVyzhtFTnu7TmrD9oeFo1o0NuDG6qSJykgXCjmE3/OcnY6jYxZ56cw1AUeh2HeKDYUclbukrofYpNm4m9GiODXuS/rAQEQR8QRPQHx0hQu7duNuZ/a2Ib36GC9BRFINr0cCbekQ53sp2WZITUzuE67A264H2AMIJ/NoBtYii0oBMnx8g7Atm2HWKqbGoy3JUS5KXErKEzwYMNCTrUqGwRjeycl/G/kjeE+GRioBhRiQnnJtAT0VFJ+o7QCio2n2LFkJR0L8m2x0GCpUBctEBfNhsWrZAiaA=
+  email: false

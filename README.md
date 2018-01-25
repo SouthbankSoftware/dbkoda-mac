@@ -1,24 +1,13 @@
 # dbkoda-mac
 *dbKoda for Mac*
 
-<p align="left">
-  <a href="https://travis-ci.org/SouthbankSoftware/dbkoda-mac">
-    <img src="https://img.shields.io/travis/SouthbankSoftware/dbkoda-mac.svg?style=flat-square">
-  </a>
-  <a href="https://david-dm.org/SouthbankSoftware/dbkoda-mac">
-    <img src="https://img.shields.io/david/SouthbankSoftware/dbkoda-mac.svg?style=flat-square">
-  </a>
-  <a href="https://david-dm.org/SouthbankSoftware/dbkoda-mac?type=dev">
-    <img src="https://img.shields.io/david/dev/SouthbankSoftware/dbkoda-mac.svg?style=flat-square">
-  </a>
-</p>
+[![build](https://img.shields.io/travis/SouthbankSoftware/dbkoda-mac.svg?style=flat-square)](https://travis-ci.org/SouthbankSoftware/dbkoda-mac)
+[![dependencies](https://img.shields.io/david/SouthbankSoftware/dbkoda-mac.svg?style=flat-square)](https://david-dm.org/SouthbankSoftware/dbkoda-mac)
+[![devDependencies](https://img.shields.io/david/dev/SouthbankSoftware/dbkoda-mac.svg?style=flat-square)](https://david-dm.org/SouthbankSoftware/dbkoda-mac?type=dev)
 
 ## Requirement
-* Node 8.9.1
-* Yarn
-* node-gyp: `yarn global add node-gyp` or `npm install -g node-gyp`
-* JDK 1.8.0
-* **_optional_** Python 2.7 (for testing)
+* Node 8.9.1+
+* Yarn 1.3.2+
 
 ## Build from source
 1. `yarn install`
