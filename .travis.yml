@@ -2,7 +2,7 @@
 # @Date:   2018-01-24T14:35:24+11:00
 # @Email:  root@guiguan.net
 # @Last modified by:   guiguan
-# @Last modified time: 2018-01-25T14:20:28+11:00
+# @Last modified time: 2018-01-25T17:37:51+11:00
 #
 # dbKoda - a modern, open source code editor, for MongoDB.
 # Copyright (C) 2017-2018 Southbank Software
@@ -36,7 +36,6 @@ before_install:
   - git submodule update --init --recursive --recommend-shallow --remote
 
 install:
-  - echo $JAVA_HOME
   - export JAVA_HOME=$(/usr/libexec/java_home)
   - node -v
   - java -version
@@ -61,5 +60,8 @@ deploy:
 
 notifications:
   slack:
-    secure: dRNeSCQgkwXmb6M9/dKDdNHDCB687pUVCIUjWBl1bNM5pfn9ej5cKfRUSaDCDeJw+p1JsZHqEy1u0SEWuqZPFYGBkQi7ozkoFfPdEL1ES2wufAZAlR6zGlB6+IKjsiPyKq8Lu9xTrtF6Flr6GYP6+aS11yfE69ZafQ/3ETG6SF27yX+n853h00ob8OYVLeCK0vxEac92FlOb5n5EXMloMCcrUGnF5yH9MAZWHs07cL+z0MKoO6cUodQOGVuMWWfjK5feEhABJVrxe6j4qmHnX7nROtIEuB8Y0hzWvEwT5eBD5ujBc4/wa1xNNWW1TFIgGViFU4JOqgq92EfiUj++TBYGkt4l2OAWda4u/GlhZsDqHN3ZIZYO82uUyKcZxbK6z934dTSPjzNQZVyzhtFTnu7TmrD9oeFo1o0NuDG6qSJykgXCjmE3/OcnY6jYxZ56cw1AUeh2HeKDYUclbukrofYpNm4m9GiODXuS/rAQEQR8QRPQHx0hQu7duNuZ/a2Ib36GC9BRFINr0cCbekQ53sp2WZITUzuE67A264H2AMIJ/NoBtYii0oBMnx8g7Atm2HWKqbGoy3JUS5KXErKEzwYMNCTrUqGwRjeycl/G/kjeE+GRioBhRiQnnJtAT0VFJ+o7QCio2n2LFkJR0L8m2x0GCpUBctEBfNhsWrZAiaA=
+    rooms:
+      - secure: nLPNs6ApfP3qRPUmjMPL7imsYVTBb22WLd0ii2epRVVkpYtTcMARwto06aUjSv3XLTlM1F8gFEhdlrgGGB/YhdEmjoRhf/fCLGR2u5eBHSJaDtljBHwunO3wpgt4HCOmsw3jr4dxyxfzRkn14j+ydA+xLitVpPLMgGdRl/FTZ2HoxXB4PwQ1ntRE6q66RYS6z+FLbGwyW9+R3i5bwDTB3BgEo9napz3iPW495i30imJSKKHIDjcvJfX5JjdkPh6EgMD2HMUnmVCDs8E5obQW5LZz26jvZTLHcLqd21tv0ij7YyzC8T+VjDjtjcByK6yK6HNgmKVuKLrc424YNdwEZtfRXOQj0Nsi/meo1NN93syab6O0JiIfBHSwC0aSoKN5Ut66kdZk6uO0LDAPG6xZ+fo252K092vS73CuocubMXQcKhixKkX4+16WClCtRg2JYmT8zjPBtxk4LEwmdsOzXx83xfsEcKUxMYzvjVzVzpWEncb/k4QBgLgw0Pi0RyGyOEj/1QBG5YJEiyUsmulqfVM1YCvS8WqgBRFdQhlG5Ai0/QKhnkDFkXv6Lmk6xx89NmThrTAeBY4e2qWHXuIJ5y0XVJz/OShTdJascgoUNFql0bHlMNkLaNxuNf8R5LNBH+d0TQH+z9Pf9aoMstedxvDad3QoyP7D4uDcJKK1LGc=
+    template:
+      - 'macOS cloud build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) by %{author} %{result} in %{duration}: %{message}'
   email: false
